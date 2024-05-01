@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdarg.h>
+#include "main.h"
 /**
  * _printf - produces output according to a format.
  *
@@ -11,39 +12,38 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	int i = 0;
+	int i = 0, j;
 	size_t len = 0;
-	char *str, buffer[1024];
+	char buffer[1024];
+	format_specifier f[] = {
+		{"c", print_c},
+		{"s", print_s},
+		{"d", print_d},
+	};
 
 	va_start(args, format);
-
 	while (format && format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
 			i++; /* Skip the '%' */
-			switch (format[i])
-			{
-				case 'c':
-					buffer[len++] = va_arg(args, int);
-					break;
-				case 's':
-					str = va_arg(args, char *);
-					while (*str != '\0')
-					{
-						buffer[len++] = *str++;
-					}
-					break;
-				default:
-					buffer[len++] = '%';
-					buffer[len++] = format[i];
-					break;
 
+			j = 0;
+			while (j < 3 && (format[i] != *(f[j].specifier)))
+				j++;
+
+			if (j < 3)
+				f[j].print(args, buffer, &len);
+			else
+			{
+				buffer[len++] = '%';
+				buffer[len++] = format[i];
 			}
 
 		}
 		else
 		{
+			/* If format specifier not found, treat '%' as a literal character */
 			buffer[len++] = format[i];
 		}
 		i++;
@@ -51,5 +51,5 @@ int _printf(const char *format, ...)
 	buffer[len] = '\0';
 	write(1, buffer, len);
 	va_end(args);
-	return (0);
+	return (len);
 }
