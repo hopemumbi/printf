@@ -18,7 +18,7 @@ int _printf(const char *format, ...)
 	format_specifier f[] = {
 		{"c", print_c},
 		{"s", print_s},
-		{"d", print_d},
+		{"d", print_d}
 	};
 
 	va_start(args, format);
@@ -27,17 +27,23 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++; /* Skip the '%' */
-
-			j = 0;
-			while (j < 3 && (format[i] != *(f[j].specifier)))
-				j++;
-
-			if (j < 3)
-				f[j].print(args, buffer, &len);
-			else
+			if (format[i] == '%')
 			{
 				buffer[len++] = '%';
-				buffer[len++] = format[i];
+			}
+			else
+			{
+				j = 0;
+				while (j < 3 && (format[i] != *(f[j].specifier)))
+					j++;
+
+				if (j < 3)
+					f[j].print(args, buffer, &len);
+				else
+				{
+					buffer[len++] = '%';
+					buffer[len++] = format[i];
+				}
 			}
 
 		}

@@ -12,16 +12,32 @@
 int print_s(va_list args, char *buffer, size_t *len)
 {
 	char *str;
+	const char *strn;
 	size_t i;
 
 	str = va_arg(args, char *);
 
-	i = 0;
-	while (str[i] != '\0')
+	if (str == NULL)
 	{
-		buffer[*len] = str[i];
-		(*len)++;
-		i++;
+		strn = "(null)";
+		i = 0;
+		while (strn[i] != '\0')
+		{
+			buffer[*len] = strn[i];
+			(*len)++;
+			i++;
+		}
+		return (0);
 	}
-	return (0);
+	else
+	{
+		i = 0;
+		while (str[i] != '\0')
+		{
+			buffer[*len] = str[i];
+			(*len)++;
+			i++;
+		}
+		return (0);
+	}
 }
