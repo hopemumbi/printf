@@ -12,26 +12,12 @@
  */
 int print_d(va_list args, char *buffer, size_t *len)
 {
-	int num, temp, rem;
+	int num;
 	size_t i, size;
-	char str[20];
+	char str[30];
 
 	num = va_arg(args, int);
-
-	temp = num;
-	size = 0;
-	while (temp != 0)
-	{
-		size++;
-		temp = temp / 10;
-	}
-
-	for (i = 0; i < size; i++)
-	{
-		rem = num % 10;
-		num = num / 10;
-		str[size - i - 1] = rem + '0';
-	}
+	size = _itoa(num, str);
 
 	for (i = 0; i < size; i++)
 	{
