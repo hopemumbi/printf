@@ -18,7 +18,8 @@ int _printf(const char *format, ...)
 	format_specifier f[] = {
 		{"c", print_c},
 		{"s", print_s},
-		{"d", print_d}
+		{"d", print_d},
+		{"i", print_i}
 	};
 
 	va_start(args, format);
@@ -34,10 +35,10 @@ int _printf(const char *format, ...)
 			else
 			{
 				j = 0;
-				while (j < 3 && (format[i] != *(f[j].specifier)))
+				while (j < 4 && (format[i] != *(f[j].specifier)))
 					j++;
 
-				if (j < 3)
+				if (j < 4)
 					f[j].print(args, buffer, &len);
 				else
 				{
