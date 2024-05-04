@@ -8,16 +8,18 @@
  *
  *
  */
-typedef struct format_specifier
+typedef struct format
 {
-	char *specifier;
-	int (*print)(va_list, char *, size_t *);
-} format_specifier;
+	char *sym;
+	int (*print)(va_list);
+} format_s;
 
-int print_c(va_list args, char *buffer, size_t *len);
-int print_s(va_list args, char *buffer, size_t *len);
+int _putchar(char c);
+int print_char(va_list args);
+int print_string(va_list args);
 int _itoa(int n, char *str);
-int print_d(va_list args, char *buffer, size_t *len);
-int print_i(va_list args, char *buffer, size_t *len);
+int print_integer(va_list args);
+int print_percent(va_list args);
+int scanner(const char *format, format_s f_list[], va_list args);
 int _printf(const char *format, ...);
 #endif
