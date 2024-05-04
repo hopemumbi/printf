@@ -13,7 +13,7 @@
  */
 int scanner(const char *format, format_s flist[], va_list args)
 {
-	int returned, total_chars = 0;
+	int total_chars = 0;
 	int i, j, found = 0;
 
 	if (format == NULL || flist == NULL)
