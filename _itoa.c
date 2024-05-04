@@ -3,8 +3,10 @@
 #include "main.h"
 /**
  * _itoa - converts an integer to a string
+ *
  * @n: The integer to be converted
  * @str: Pointer to a character array where the result is stored
+ *
  * Return: The length of the resulting string
  */
 int _itoa(int n, char *str)
@@ -22,32 +24,25 @@ int _itoa(int n, char *str)
 		str[i] = '\0';
 		return (i);
 	}
-
-	sign = n < 0 ? -1 : 1;
-
-	/* Handle case where n is '0'*/
-	if (n == 0)
+	if (n == 0) /* Handle case where n is '0'*/
 		str[i++] = '0';
 
-	/* Handle negative numbers */
-	if (sign == -1)
+	sign = n < 0 ? -1 : 1;
+	if (sign == -1) /* Handle negative numbers */
 	{
 		str[i++] = '-';
 		n = -n; /* Make positive*/
 	}
-
-	/* Convert each digit of the number to a string*/
-	while (n != 0)
+	while (n != 0) /* Convert each digit of the number to a string*/
 	{
 		str[i++] = '0' + (n % 10);
 		n /= 10;
 	}
 	str[i] = '\0'; /* Null-terminate the string */
 
-	/* Reverse the string */
 	a = sign == -1 ? 1 : 0; /* Start index for reversal*/
 	z = i - 1; /* End index for reversal */
-	while (a < z)
+	while (a < z) /* Reverse the string */
 	{
 		char swap;
 
